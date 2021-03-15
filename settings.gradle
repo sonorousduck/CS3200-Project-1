@@ -1,0 +1,3 @@
+include ':API'
+include ':app'
+rootProject.name = "SpyGame"
