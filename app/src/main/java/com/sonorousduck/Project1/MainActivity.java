@@ -7,8 +7,6 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.sonorousduck.api.viewmodels.UserViewModel;
-
 
 public class MainActivity extends AppCompatActivity {
 
