@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         EditText password = findViewById(R.id.password);
         Button signIn = findViewById(R.id.signIn);
         Button signUp = findViewById(R.id.signUp);
-//        Button signOut = findViewById(R.id.logOut1);
+
 
         signIn.setOnClickListener((view -> {
             viewModel.signIn(
