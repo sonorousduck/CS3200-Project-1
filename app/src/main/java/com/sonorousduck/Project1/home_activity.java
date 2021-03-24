@@ -34,9 +34,9 @@ public class home_activity extends ActivityWithUser {
         });
 
 
-//        findViewById(R.id.logOut).setOnClickListener((view -> {
-//            viewModel.signOut();
-//        }));
+        findViewById(R.id.logOut).setOnClickListener((view -> {
+            viewModel.signOut();
+        }));
 
 
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);

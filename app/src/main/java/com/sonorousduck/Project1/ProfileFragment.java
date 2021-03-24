@@ -13,8 +13,7 @@ public class ProfileFragment extends Fragment {
     public ProfileFragment() {
         super(R.layout.fragment_profile);
 
-        TextView profile = R.id.profile_email;
-
     }
+
 
 }
