@@ -1,5 +1,6 @@
 package com.sonorousduck.Project1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,13 +17,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_signup);
+        setContentView(R.layout.login);
         viewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         EditText email = findViewById(R.id.email);
         EditText password = findViewById(R.id.password);
         Button signIn = findViewById(R.id.signIn);
         Button signUp = findViewById(R.id.signUp);
+//        Button signOut = findViewById(R.id.logOut1);
 
         signIn.setOnClickListener((view -> {
             viewModel.signIn(
@@ -36,6 +38,28 @@ public class MainActivity extends AppCompatActivity {
                     password.getText().toString());
         }));
 
+//
+//        signOut.setOnClickListener(view -> {
+//            viewModel.signOut();
+//            System.out.println("Signed Out");
+//        });
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        viewModel.getUser().observe(this, (user) -> {
+            System.out.println("MY USER!");
+            System.out.println(user);
+            if (user != null) {
+                Intent intent = new Intent(this, home_activity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 }
