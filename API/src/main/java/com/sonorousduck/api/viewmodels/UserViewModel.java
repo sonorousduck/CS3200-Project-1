@@ -41,7 +41,7 @@ public class UserViewModel extends ViewModel {
         return user;
     }
 
-    public void signUp(String email, String password) {
+    public void signUp(String name, String email, String password) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener((Task<AuthResult> task) -> {
             AuthResult result = task.getResult();
             if (result.getUser() == null) {

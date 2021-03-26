@@ -2,4 +2,13 @@
     <string name="app_name">Are you a Spy</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="testing">
+        Your task is to as quickly as possible identify what color the text is written in.
+
+        (Not the color that is written itself.)
+
+        Get enough right quick enough and you will be deemed not a spy.
+
+
+        Good luck. </string>
 </resources>

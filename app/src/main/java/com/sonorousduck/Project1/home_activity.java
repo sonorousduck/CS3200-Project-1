@@ -1,6 +1,7 @@
 package com.sonorousduck.Project1;
 
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,11 +13,13 @@ import com.sonorousduck.api.viewmodels.UserViewModel;
 
 public class home_activity extends ActivityWithUser {
 
+    public static final int RECORD_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_activity);
 
+        requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_CODE);
 
         // This sets the main fragment to be the game_fragment
         if (savedInstanceState == null) {

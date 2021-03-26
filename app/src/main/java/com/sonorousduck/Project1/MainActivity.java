@@ -1,5 +1,6 @@
 package com.sonorousduck.Project1;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -13,12 +14,16 @@ import com.sonorousduck.api.viewmodels.UserViewModel;
 public class MainActivity extends AppCompatActivity {
 
     UserViewModel viewModel;
+    public static final int RECORD_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         viewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
+        requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_CODE);
+
 
         EditText email = findViewById(R.id.email);
         EditText password = findViewById(R.id.password);
@@ -33,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
         }));
 
         signUp.setOnClickListener((view -> {
-            viewModel.signUp(
-                    email.getText().toString(),
-                    password.getText().toString());
+            Intent intent = new Intent(this, SignUpActivity.class);
+            startActivity(intent);
+
         }));
 
 //
