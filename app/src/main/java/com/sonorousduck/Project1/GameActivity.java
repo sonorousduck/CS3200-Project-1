@@ -11,11 +11,14 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameActivity extends ActivityWithUser {
 
     private Boolean isTalking = false;
+    protected int score = 0;
+    protected int failures = 0;
 
 
     protected void randomizeColors(TextView gameObject) {
@@ -29,11 +32,14 @@ public class GameActivity extends ActivityWithUser {
 
         gameObject.setText(colorNames[random1]);
         gameObject.setTextColor(Color.parseColor(colorInXML[random2]));
+        gameObject.setHint(colorNames[random2]);
     }
 
 
-    private void endGame() {
+    private void endGame(int score, int failures) {
         Intent intent = new Intent(this, GameOver.class);
+        intent.putExtra("score", score);
+        intent.putExtra("failures", failures);
         startActivity(intent);
         finish();
     }
@@ -89,8 +95,16 @@ public class GameActivity extends ActivityWithUser {
             @Override
             public void onResults(Bundle results) {
                 // This is where the results will go
+                ArrayList<String> result = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 
-                System.out.println(results);
+                System.out.println(result.get(0).toLowerCase());
+                System.out.println(gameObject.getHint().toString().toLowerCase());
+
+                if (result.get(0).equals(gameObject.getHint().toString().toLowerCase())) {
+                    score++;
+                } else {
+                    failures++;
+                }
 
                 randomizeColors(gameObject);
 
@@ -109,8 +123,6 @@ public class GameActivity extends ActivityWithUser {
         });
 
         Intent recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        recognizer.startListening(recognizerIntent);
-
 
         findViewById(R.id.microphone).setOnClickListener((view -> {
             if (!isTalking) {
@@ -122,7 +134,7 @@ public class GameActivity extends ActivityWithUser {
             }
         }));
 
-        new CountDownTimer(10000, 1000) {
+        new CountDownTimer(30000, 1000) {
             @Override
             public void onTick(long l) {
                 timerText.setText("" + l / 1000);
@@ -131,12 +143,7 @@ public class GameActivity extends ActivityWithUser {
             @Override
             public void onFinish() {
                 timerText.setText("Time is up.");
-                endGame();
-
-
-
-                //Send them to a new finish screen fragment.
-
+                endGame(score, failures);
             }
         }.start();
 

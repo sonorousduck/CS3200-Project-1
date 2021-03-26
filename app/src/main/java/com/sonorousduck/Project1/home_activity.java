@@ -29,21 +29,6 @@ public class home_activity extends ActivityWithUser {
                     .commit();
         }
 
-
-
-
-        viewModel.getUser().observe(this, (user) -> {
-            if (user != null) {
-                viewModel.storeUserSpecificData();
-            }
-        });
-
-
-//        findViewById(R.id.logOut).setOnClickListener((view -> {
-//            viewModel.signOut();
-//        }));
-
-
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
         DrawerLayout drawerLayout = findViewById(R.id.drawer);
         toolbar.setNavigationOnClickListener(view -> {

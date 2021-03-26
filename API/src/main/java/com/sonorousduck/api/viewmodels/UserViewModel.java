@@ -11,6 +11,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sonorousduck.api.models.User;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class UserViewModel extends ViewModel {
     FirebaseAuth auth;
@@ -41,6 +44,10 @@ public class UserViewModel extends ViewModel {
         return user;
     }
 
+    public String getEmail() {
+        return this.user.getValue().email;
+    }
+
     public void signUp(String name, String email, String password) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener((Task<AuthResult> task) -> {
             AuthResult result = task.getResult();
@@ -65,9 +72,23 @@ public class UserViewModel extends ViewModel {
 
 
 
-    public void storeUserSpecificData() {
+    public void storeUserSpecificData(int score, int failures, boolean isSpy) {
         if (user.getValue() != null) {
-            database.child("userData").child(user.getValue().uid).child("name").setValue("My users name is ??");
+
+            String newPostKey = database.getRef().child(user.getValue().uid).push().getKey();
+
+            HashMap<String, String> postData = new HashMap<>();
+
+            postData.put("score", "" + score);
+            postData.put("failures", "" + failures);
+            postData.put("isSpy", "" + isSpy);
+
+            database.child("userData").child(user.getValue().uid).child(newPostKey).setValue(postData);
+
+
+//            database.child("userData").child(user.getValue().uid).child("score").setValue("" + score);
+//            database.child("userData").child(user.getValue().uid).child("failures").setValue("" + failures);
+//            database.child("userData").child(user.getValue().uid).child("isSpy").setValue("" + isSpy);
         }
     }
 
